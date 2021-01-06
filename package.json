@@ -16,7 +16,8 @@
     "ganache": "ganache-cli",
     "migrate": "truffle migrate",
     "solium": "solium -d contracts/ --fix",
-    "test": "truffle test"
+    "test": "truffle test",
+    "besu": "besu --network=dev --miner-enabled --miner-coinbase=0xfe3b557e8fb62b89f4916b721be55ceb828dbd73 --rpc-http-cors-origins=\"all\" --host-allowlist=\"*\" --rpc-ws-enabled --rpc-http-enabled --data-path=/tmp/tmpDatdir --min-gas-price=0"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,9 @@
     "url": "https://github.com/paxosglobal/busd-contracts/issues"
   },
   "homepage": "https://github.com/paxosglobal/busd-contracts#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^1.2.0"
+  },
   "devDependencies": {
     "eth-sig-util": "^2.1.0",
     "ganache-cli": "^6.1.2",
