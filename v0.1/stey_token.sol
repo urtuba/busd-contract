@@ -1,46 +1,34 @@
-
-// File: contracts/zeppelin/SafeMath.sol
-
-pragma solidity 0.4.24;
-
-
-/**
- * @title SafeMath
- * @dev Math operations with safety checks that throw on error
- */
-library SafeMath {
-    /**
-    * @dev Subtracts two numbers, reverts on overflow (i.e. if subtrahend is greater than minuend).
-    */
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b <= a);
-        uint256 c = a - b;
-
-        return c;
-    }
-
-    /**
-    * @dev Adds two numbers, reverts on overflow.
-    */
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        require(c >= a);
-
-        return c;
-    }
-}
-
-// File: contracts/BUSDImplementation.sol
-
 pragma solidity 0.4.24;
 pragma experimental "v0.5.0";
 
 
 
+library SafeMath {
+   /**
+   * @dev Subtracts two numbers, reverts on overflow (i.e. if subtrahend is greater than minuend).
+   */
+   function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+       require(b <= a);
+       uint256 c = a - b;
+
+       return c;
+   }
+
+   /**
+   * @dev Adds two numbers, reverts on overflow.
+   */
+   function add(uint256 a, uint256 b) internal pure returns (uint256) {
+       uint256 c = a + b;
+       require(c >= a);
+
+       return c;
+   }
+}
+
 /**
- * @title BUSDImplementation
+ * @title STTImplementation
  * @dev this contract is a Pausable ERC20 token with Burn and Mint
- * controlled by a central SupplyController. By implementing BUSDImplementation
+ * controlled by a central SupplyController. By implementing STTImplementation
  * this contract also includes external methods for setting
  * a new implementation contract for the Proxy.
  * NOTE: The storage defined here will actually be held in the Proxy
@@ -49,7 +37,7 @@ pragma experimental "v0.5.0";
  * Any call to transfer against this contract should fail
  * with insufficient funds since no tokens will be issued there.
  */
-contract BUSDImplementation {
+contract STTImplementation {
 
     /**
      * MATH
@@ -67,8 +55,8 @@ contract BUSDImplementation {
     // ERC20 BASIC DATA
     mapping(address => uint256) internal balances;
     uint256 internal totalSupply_;
-    string public constant name = "Binance USD"; // solium-disable-line
-    string public constant symbol = "BUSD"; // solium-disable-line uppercase
+    string public constant name = "Stey Token"; // solium-disable-line
+    string public constant symbol = "STT"; // solium-disable-line uppercase
     uint8 public constant decimals = 18; // solium-disable-line uppercase
 
     // ERC20 DATA
@@ -351,11 +339,11 @@ contract BUSDImplementation {
     }
 
     /**
-     * @dev Reclaim all BUSD at the contract address.
-     * This sends the BUSD tokens that this contract add holding to the owner.
+     * @dev Reclaim all STT at the contract address.
+     * This sends the STT tokens that this contract add holding to the owner.
      * Note: this is not affected by freeze constraints.
      */
-    function reclaimBUSD() external onlyOwner {
+    function reclaimSTT() external onlyOwner {
         uint256 _balance = balances[this];
         balances[this] = 0;
         balances[owner] = balances[owner].add(_balance);
