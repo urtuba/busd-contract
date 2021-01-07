@@ -165,7 +165,7 @@ contract STTImplementation {
     function transfer(address _to, uint256 _value) public whenNotPaused returns (bool) {
         require(_to != address(0), "cannot transfer to address zero");
         require(!frozen[_to] && !frozen[msg.sender], "address frozen");
-        require(!limited[msg.sender]), "address limited");
+        require(!limited[msg.sender], "address limited");
         require(_value <= balances[msg.sender], "insufficient funds");
 
         balances[msg.sender] = balances[msg.sender].sub(_value);
@@ -202,7 +202,7 @@ contract STTImplementation {
     {
         require(_to != address(0), "cannot transfer to address zero");
         require(!frozen[_to] && !frozen[_from] && !frozen[msg.sender], "address frozen");
-        require(!limited[_from], "address limited")
+        require(!limited[_from], "address limited");
         require(_value <= balances[_from], "insufficient funds");
         require(_value <= allowed[_from][msg.sender], "insufficient allowance");
 
@@ -224,7 +224,7 @@ contract STTImplementation {
      */
     function approve(address _spender, uint256 _value) public whenNotPaused returns (bool) {
         require(!frozen[_spender] && !frozen[msg.sender], "address frozen");
-        require(!limited[_spender], "address limited")
+        require(!limited[_spender], "address limited");
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         return true;
